@@ -1,8 +1,12 @@
 package net.luis.myfirstmod;
 
 import com.mojang.logging.LogUtils;
+import net.luis.myfirstmod.block.ModBlocks;
+import net.luis.myfirstmod.entity.ModEntities;
+import net.luis.myfirstmod.entity.client.PenguinRenderer;
 import net.luis.myfirstmod.item.ModCreativeModeTabs;
 import net.luis.myfirstmod.item.ModItems;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -27,6 +31,8 @@ public class MyFirstMod {
 
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -52,7 +58,7 @@ public class MyFirstMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(ModEntities.PENGUIN.get(), PenguinRenderer::new);
         }
     }
 }

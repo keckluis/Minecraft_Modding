@@ -1,5 +1,8 @@
 {
   "creativetab.mod_tab": "Mod Items",
   "item.myfirstmod.sapphire": "Sapphire",
-  "item.myfirstmod.raw_sapphire": "Raw Sapphire"
+  "item.myfirstmod.raw_sapphire": "Raw Sapphire",
+  "block.myfirstmod.sapphire_block": "Block of Sapphire",
+  "block.myfirstmod.sapphire_ore": "Sapphire Ore",
+  "item.myfirstmod.penguin_spawn_egg": "Penguin Spawn Egg"
 }
