@@ -1,6 +1,5 @@
 package net.luis.myfirstmod.entity.client;
 
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.luis.myfirstmod.entity.animations.ModAnimationsDefinitions;
@@ -74,13 +73,20 @@ public class PenguinModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-        if (entity.isInWater()) {
-            this.animateWalk(ModAnimationsDefinitions.PENGUIN_SWIM, limbSwing, limbSwingAmount, 5f, 1f);
-        } else {
-            this.animateWalk(ModAnimationsDefinitions.PENGUIN_WALK, limbSwing, limbSwingAmount, 5f, 1f);
+        PenguinEntity penguin = (PenguinEntity) entity;
+
+        if (penguin.swimAnimationState.isStarted()) {
+            this.animate(penguin.swimAnimationState, ModAnimationsDefinitions.PENGUIN_SWIM, ageInTicks, 2f);
+        } else if (penguin.walkAnimationState.isStarted()) {
+            this.animate(penguin.walkAnimationState, ModAnimationsDefinitions.PENGUIN_WALK, ageInTicks, 2f);
+        } else if (penguin.idleAnimationState.isStarted()) {
+            this.animate(penguin.idleAnimationState, ModAnimationsDefinitions.PENGUIN_IDLE, ageInTicks, 1f);
         }
 
-        this.animate(((PenguinEntity) entity).idleAnimationState, ModAnimationsDefinitions.PENGUIN_SWIM, ageInTicks, 1f);
+        if (limbSwingAmount > 0.01f && !entity.isInWater()) {
+            this.left_foot.xRot = Mth.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+            this.right_foot.xRot = Mth.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
+        }
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
