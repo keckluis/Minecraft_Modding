@@ -146,7 +146,7 @@ public class PenguinEntity extends Animal {
     @Override
     public float getSpeed() {
         if (this.isInWater()) {
-            return super.getSpeed() * 2.0f;
+            return super.getSpeed() * 5.0f;
         }
         return super.getSpeed();
     }
