@@ -37,6 +37,12 @@ public class PenguinEntity extends Animal {
     }
 
     private void setupAnimationStates() {
+        if (this.isInWater() || this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+            this.idleAnimationState.stop();
+            this.idleAnimationTimeout = 0; // Optional: reset
+            return;
+        }
+
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(40) + 80;
             this.idleAnimationState.start(this.tickCount);

@@ -24,7 +24,7 @@ public class MyFirstMod {
 
     public static final String MOD_ID = "myfirstmod";
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public MyFirstMod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
